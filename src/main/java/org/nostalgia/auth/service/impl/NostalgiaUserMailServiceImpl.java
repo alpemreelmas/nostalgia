@@ -46,7 +46,7 @@ class NostalgiaUserMailServiceImpl implements NostalgiaUserMailService {
     public void sendPasswordCreateEmail(NostalgiaUser user) {
 
         final Map<String, Object> parameters = Map.of(
-                "userFullName", user.getFirstName() + " " + user.getLastName(),
+                "userFullName", user.getFullName(),
                 "url", this.findFeUrl().concat("/create-password/").concat(user.getPassword().getId())
         );
 

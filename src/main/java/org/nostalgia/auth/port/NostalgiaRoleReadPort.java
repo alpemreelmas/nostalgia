@@ -37,14 +37,6 @@ public interface NostalgiaRoleReadPort {
     Optional<NostalgiaRole> findById(String id);
 
     /**
-     * Retrieves all active roles associated with a specific institution.
-     *
-     * @param institutionId The ID of the institution.
-     * @return A list of active roles belonging to the institution.
-     */
-    List<NostalgiaRole> findAllActivesByInstitutionId(String institutionId);
-
-    /**
      * Retrieves all {@link NostalgiaRole} entities for the given set of role IDs.
      *
      * @param ids A set of role IDs for which the roles are to be retrieved.

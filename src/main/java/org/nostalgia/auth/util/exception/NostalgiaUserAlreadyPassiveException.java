@@ -1,13 +1,13 @@
 package org.nostalgia.auth.util.exception;
 
-import org.ays.common.util.exception.AysAlreadyException;
+import org.nostalgia.common.util.exception.NostalgiaAlreadyException;
 
 import java.io.Serial;
 
 /**
  * Exception thrown when a user is passive and attempting to perform an action that requires a passive user.
  */
-public final class NostalgiaUserAlreadyPassiveException extends AysAlreadyException {
+public final class NostalgiaUserAlreadyPassiveException extends NostalgiaAlreadyException {
 
     /**
      * Unique serial version ID.

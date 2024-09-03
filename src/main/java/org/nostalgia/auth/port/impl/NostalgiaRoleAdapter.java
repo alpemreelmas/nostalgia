@@ -80,19 +80,6 @@ class NostalgiaRoleAdapter implements NostalgiaRoleReadPort, NostalgiaRoleSavePo
 
 
     /**
-     * Retrieves all active {@link NostalgiaRole} entities associated with a specific institution ID.
-     *
-     * @param institutionId The ID of the institution to filter roles by.
-     * @return A set of active {@link NostalgiaRole} entities found for the institution.
-     */
-    @Override
-    public List<NostalgiaRole> findAllActivesByInstitutionId(final String institutionId) {
-        List<NostalgiaRoleEntity> roleEntities = roleRepository.findAllByInstitutionIdAndStatus(institutionId, NostalgiaRoleStatus.ACTIVE);
-        return roleEntityToDomainMapper.map(roleEntities);
-    }
-
-
-    /**
      * Retrieves all {@link NostalgiaRole} entities by their IDs.
      *
      * @param ids A set of role IDs to retrieve.

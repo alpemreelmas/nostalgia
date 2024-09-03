@@ -29,10 +29,7 @@ public class NostalgiaUser extends BaseDomainModel {
 
     private String id;
     private String emailAddress;
-    private String firstName;
-    private String lastName;
-    private NostalgiaPhoneNumber phoneNumber;
-    private String city;
+    private String fullName;
     private NostalgiaUserStatus status;
 
     private Password password;
@@ -145,8 +142,7 @@ public class NostalgiaUser extends BaseDomainModel {
     public Claims getClaims() {
         final ClaimsBuilder claimsBuilder = Jwts.claims();
         claimsBuilder.add(NostalgiaTokenClaims.USER_ID.getValue(), this.id);
-        claimsBuilder.add(NostalgiaTokenClaims.USER_FIRST_NAME.getValue(), this.firstName);
-        claimsBuilder.add(NostalgiaTokenClaims.USER_LAST_NAME.getValue(), this.lastName);
+        claimsBuilder.add(NostalgiaTokenClaims.USER_FULL_NAME.getValue(), this.fullName);
         claimsBuilder.add(NostalgiaTokenClaims.USER_EMAIL_ADDRESS.getValue(), this.emailAddress);
         claimsBuilder.add(NostalgiaTokenClaims.USER_PERMISSIONS.getValue(), this.getPermissionNames());
 

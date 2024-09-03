@@ -1,6 +1,5 @@
 package org.nostalgia.auth.util.exception;
 
-import org.ays.common.util.exception.AysAuthException;
 import org.nostalgia.common.util.exception.NostalgiaAuthException;
 
 import java.io.Serial;

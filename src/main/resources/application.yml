@@ -12,7 +12,7 @@ spring:
   datasource:
     username: ${NOSTALGIA_DB_USERNAME:root}
     password: ${NOSTALGIA_DB_PASSWORD:44125}
-    url: jdbc:mysql://${NOSTALGIA_DB_IP:localhost}:${NOSTALGIA_DB_PORT:3307}/nostalgia
+    url: jdbc:mysql://${NOSTALGIA_DB_IP:localhost}:${NOSTALGIA_DB_PORT:3306}/nostalgia
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       username: ${spring.datasource.username}

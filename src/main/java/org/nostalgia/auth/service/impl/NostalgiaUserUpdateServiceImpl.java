@@ -53,20 +53,11 @@ class NostalgiaUserUpdateServiceImpl implements NostalgiaUserUpdateService {
             throw new NostalgiaUserIsNotActiveOrPassiveException(id);
         }
 
-        final NostalgiaPhoneNumber phoneNumber = NostalgiaPhoneNumber.builder()
-                .countryCode(updateRequest.getPhoneNumber().getCountryCode())
-                .lineNumber(updateRequest.getPhoneNumber().getLineNumber())
-                .build();
-
-        this.validatePhoneNumber(user, phoneNumber);
         this.validateEmailAddress(user, updateRequest.getEmailAddress());
         this.validateRolesAndSet(user, updateRequest.getRoleIds());
 
-        user.setFirstName(updateRequest.getFirstName());
-        user.setLastName(updateRequest.getLastName());
+        user.setFullName(updateRequest.getFullName());
         user.setEmailAddress(updateRequest.getEmailAddress());
-        user.setCity(updateRequest.getCity());
-        user.setPhoneNumber(phoneNumber);
 
         userSavePort.save(user);
     }
@@ -142,28 +133,6 @@ class NostalgiaUserUpdateServiceImpl implements NostalgiaUserUpdateService {
 
         user.delete();
         userSavePort.save(user);
-    }
-
-
-    /**
-     * Validates the uniqueness of the provided phone number.
-     * Checks if there is any existing user with the same phone number.
-     *
-     * @param user        The user being updated.
-     * @param phoneNumber The phone number to be validated.
-     * @throws NostalgiaUserAlreadyExistsByPhoneNumberException if the phone number is already associated with another user.
-     */
-    private void validatePhoneNumber(NostalgiaUser user, NostalgiaPhoneNumber phoneNumber) {
-
-        if (user.getPhoneNumber().equals(phoneNumber)) {
-            return;
-        }
-
-        userReadPort.findByPhoneNumber(phoneNumber)
-                .filter(existingUser -> !existingUser.getId().equals(user.getId()))
-                .ifPresent(existingUser -> {
-                    throw new NostalgiaUserAlreadyExistsByPhoneNumberException(phoneNumber);
-                });
     }
 
 

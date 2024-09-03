@@ -50,12 +50,6 @@ public class NostalgiaUserEntity extends BaseEntity {
     @Column(name = "FULL_NAME")
     private String fullName;
 
-    @Column(name = "LINE_NUMBER")
-    private String lineNumber;
-
-    @Column(name = "CITY")
-    private String city;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
     private NostalgiaUserStatus status;

@@ -18,8 +18,6 @@ import org.nostalgia.common.model.mapper.BaseMapper;
 @Mapper
 public interface NostalgiaRoleToEntityMapper extends BaseMapper<NostalgiaRole, NostalgiaRoleEntity> {
 
-    @Override
-    @Mapping(target = "institutionId", source = "institution.id")
     NostalgiaRoleEntity map(NostalgiaRoleEntity role);
 
     /**

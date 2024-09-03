@@ -47,22 +47,6 @@ class NostalgiaUserReadServiceImpl implements NostalgiaUserReadService {
 
         final NostalgiaPageable NostalgiaPageable = listRequest.getPageable();
 
-        Optional.ofNullable(listRequest.getFilter())
-                .ifPresentOrElse(
-                        filter -> {
-                            if (filter.getInstitutionId() == null) {
-                                filter.setInstitutionId(identity.getInstitutionId());
-                            }
-                        },
-                        () -> {
-                            NostalgiaUserFilter filter = NostalgiaUserFilter.builder()
-                                    .institutionId(identity.getInstitutionId())
-                                    .build();
-
-                            listRequest.setFilter(filter);
-                        }
-                );
-
         return userReadPort.findAll(NostalgiaPageable, listRequest.getFilter());
     }
 

@@ -27,26 +27,13 @@ public class NostalgiaUserUpdateRequest {
     @Name
     @NotBlank
     @Size(min = 2, max = 100)
-    private String firstName;
-
-    @Name
-    @NotBlank
-    @Size(min = 2, max = 100)
-    private String lastName;
+    private String fullName;
 
     @EmailAddress
     @NotBlank
     @Size(min = 2, max = 255)
     private String emailAddress;
 
-    @Valid
-    @NotNull
-    private NostalgiaPhoneNumberRequest phoneNumber;
-
-    @Name
-    @NotBlank
-    @Size(min = 2, max = 100)
-    private String city;
 
     @NotEmpty
     private Set<@NotBlank @UUID String> roleIds;

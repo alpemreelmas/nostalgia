@@ -1,13 +1,14 @@
 package org.nostalgia.auth.util.exception;
 
-import org.ays.common.util.exception.AysNotExistException;
+
+import org.nostalgia.common.util.exception.NostalgiaNotExistException;
 
 import java.io.Serial;
 
 /**
  * Exception to be thrown when a user with a given User ID does not exist.
  */
-public final class NostalgiaUserLoginAttemptNotExistException extends AysNotExistException {
+public final class NostalgiaUserLoginAttemptNotExistException extends NostalgiaNotExistException {
 
     /**
      * Unique serial version ID.

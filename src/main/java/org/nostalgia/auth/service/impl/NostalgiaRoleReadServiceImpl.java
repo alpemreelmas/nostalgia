@@ -30,22 +30,6 @@ class NostalgiaRoleReadServiceImpl implements NostalgiaRoleReadService {
 
     private final NostalgiaRoleReadPort roleReadPort;
 
-    private final NostalgiaIdentity identity;
-
-
-    /**
-     * Retrieves all roles.
-     * <p>
-     * This method retrieves all roles from the data source and returns them as a set.
-     * </p>
-     *
-     * @return a list of {@link NostalgiaRole} objects representing all roles.
-     */
-    @Override
-    public List<NostalgiaRole> findAll() {
-        return roleReadPort.findAllActivesByInstitutionId(identity.getInstitutionId());
-    }
-
 
     /**
      * Retrieves a paginated list of roles based on the provided request.
@@ -61,20 +45,6 @@ class NostalgiaRoleReadServiceImpl implements NostalgiaRoleReadService {
     public NostalgiaPage<NostalgiaRole> findAll(final NostalgiaRoleListRequest listRequest) {
 
         final NostalgiaPageable NostalgiaPageable = listRequest.getPageable();
-
-        Optional.ofNullable(listRequest.getFilter())
-                .ifPresentOrElse(filter -> {
-                            if (filter.getInstitutionId() == null) {
-                                filter.setInstitutionId(identity.getInstitutionId());
-                            }
-                        },
-                        () -> {
-                            NostalgiaRoleFilter filter = NostalgiaRoleFilter.builder()
-                                    .institutionId(identity.getInstitutionId())
-                                    .build();
-
-                            listRequest.setFilter(filter);
-                        });
 
         return roleReadPort.findAll(NostalgiaPageable, listRequest.getFilter());
     }

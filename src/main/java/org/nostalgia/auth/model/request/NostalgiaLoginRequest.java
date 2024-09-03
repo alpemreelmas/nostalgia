@@ -27,7 +27,4 @@ public class NostalgiaLoginRequest {
     @NotBlank
     private String password;
 
-    @NotNull
-    private NostalgiaSourcePage sourcePage;
-
 }

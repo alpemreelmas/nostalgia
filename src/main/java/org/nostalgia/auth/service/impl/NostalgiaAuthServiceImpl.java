@@ -3,10 +3,8 @@ package org.nostalgia.auth.service.impl;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.nostalgia.auth.model.NostalgiaIdentity;
-import org.nostalgia.auth.model.NostalgiaRole;
 import org.nostalgia.auth.model.NostalgiaToken;
 import org.nostalgia.auth.model.NostalgiaUser;
-import org.nostalgia.auth.model.enums.NostalgiaSourcePage;
 import org.nostalgia.auth.model.enums.NostalgiaTokenClaims;
 import org.nostalgia.auth.model.request.NostalgiaLoginRequest;
 import org.nostalgia.auth.port.NostalgiaUserReadPort;
@@ -19,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -76,7 +73,6 @@ class NostalgiaAuthServiceImpl implements NostalgiaAuthService {
         }
 
         this.validateUserStatus(user);
-        this.validateUserSourcePagePermission(user, loginRequest.getSourcePage());
 
         Optional.ofNullable(user.getLoginAttempt())
                 .ifPresentOrElse(NostalgiaUser.LoginAttempt::success,
@@ -90,30 +86,6 @@ class NostalgiaAuthServiceImpl implements NostalgiaAuthService {
         return tokenService.generate(claimsOfUser);
     }
 
-
-    /**
-     * Validates whether the user has permission to access the specified source page.
-     *
-     * <p>
-     * This method checks if the user's roles contain any permissions associated with the specified source page.
-     * If the user has permission, it returns true; otherwise, it throws a {@link NostalgiaUserDoesNotAccessPageException}.
-     *
-     * @param user       The user for which permissions are to be checked.
-     * @param sourcePage The source page for which permission is to be validated.
-     * @throws NostalgiaUserDoesNotAccessPageException If the user does not have permission to access the specified source page.
-     */
-    private void validateUserSourcePagePermission(final NostalgiaUser user,
-                                                  final NostalgiaSourcePage sourcePage) {
-
-        boolean hasUserPermission = user.getRoles().stream()
-                .map(NostalgiaRole::getPermissions)
-                .flatMap(List::stream)
-                .anyMatch(permission -> permission.getName().equals(sourcePage.getPermission()));
-
-        if (!hasUserPermission) {
-            throw new NostalgiaUserDoesNotAccessPageException(user.getId(), sourcePage);
-        }
-    }
 
     /**
      * Refreshes the access token using the provided refresh token.

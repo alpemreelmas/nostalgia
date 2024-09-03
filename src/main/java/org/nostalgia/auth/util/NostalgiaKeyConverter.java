@@ -1,13 +1,11 @@
 package org.nostalgia.auth.util;
 
 import lombok.experimental.UtilityClass;
-import org.ays.auth.util.exception.AysKeyReadException;
-import org.ays.encryption.utility.AysPrivateKeyEncryptionUtil;
-import org.ays.encryption.utility.AysPublicKeyEncryptionUtil;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.nostalgia.auth.util.exception.NostalgiaKeyReadException;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -25,10 +23,10 @@ public class NostalgiaKeyConverter {
      *
      * @param encryptedPrivateKeyPem the encrypted private key in PEM format.
      * @return the corresponding Java PrivateKey object.
-     * @throws AysKeyReadException if an error occurs while parsing the key.
+     * @throws NostalgiaKeyReadException if an error occurs while parsing the key.
      */
     public static PrivateKey convertPrivateKey(String encryptedPrivateKeyPem) {
-        final String decryptedPrivateKeyPem = AysPrivateKeyEncryptionUtil.decrypt(encryptedPrivateKeyPem);
+        final String decryptedPrivateKeyPem = NostalgiaPrivateKeyEncryptionUtil.decrypt(encryptedPrivateKeyPem);
         final String formattedPrivateKeyPem = decryptedPrivateKeyPem.replace("             ", "\n");
         StringReader keyReader = new StringReader(formattedPrivateKeyPem);
         try {
@@ -36,7 +34,7 @@ public class NostalgiaKeyConverter {
                     .getInstance(new PEMParser(keyReader).readObject());
             return new JcaPEMKeyConverter().getPrivateKey(privateKeyInfo);
         } catch (IOException exception) {
-            throw new AysKeyReadException(exception);
+            throw new NostalgiaKeyReadException(exception);
         }
     }
 
@@ -45,10 +43,10 @@ public class NostalgiaKeyConverter {
      *
      * @param encryptedPublicKeyPem the encrypted public key in PEM format.
      * @return the corresponding Java PublicKey object.
-     * @throws AysKeyReadException if an error occurs while parsing the key.
+     * @throws NostalgiaKeyReadException if an error occurs while parsing the key.
      */
     public static PublicKey convertPublicKey(String encryptedPublicKeyPem) {
-        final String decryptedPublicKeyPem = AysPublicKeyEncryptionUtil.decrypt(encryptedPublicKeyPem);
+        final String decryptedPublicKeyPem = NostalgiaPublicKeyEncryptionUtil.decrypt(encryptedPublicKeyPem);
         final String formattedPublicKeyPem = decryptedPublicKeyPem.replace("             ", "\n");
         StringReader keyReader = new StringReader(formattedPublicKeyPem);
         try {
@@ -56,7 +54,7 @@ public class NostalgiaKeyConverter {
                     .getInstance(new PEMParser(keyReader).readObject());
             return new JcaPEMKeyConverter().getPublicKey(publicKeyInfo);
         } catch (IOException exception) {
-            throw new AysKeyReadException(exception);
+            throw new NostalgiaKeyReadException(exception);
         }
     }
 

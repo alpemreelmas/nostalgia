@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1725391394275-1" author="elmas">
+        <createTable tableName="nostalgia_invalid_token">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_invalid_token"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="token_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-2" author="elmas">
+        <createTable tableName="nostalgia_parameter">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_parameter"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="definition" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-3" author="elmas">
+        <createTable tableName="nostalgia_permission">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_permission"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="category" type="VARCHAR(255)"/>
+            <column name="is_super" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-4" author="elmas">
+        <createTable tableName="nostalgia_role">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_role"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-5" author="elmas">
+        <createTable tableName="nostalgia_role_permission_relation">
+            <column name="permission_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-6" author="elmas">
+        <createTable tableName="nostalgia_user">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_user"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="email_address" type="VARCHAR(255)"/>
+            <column name="full_name" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-7" author="elmas">
+        <createTable tableName="nostalgia_user_login_attempt">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_user_login_attempt"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="last_login_at" type="DATETIME"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-8" author="elmas">
+        <createTable tableName="nostalgia_user_password">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_nostalgia_user_password"/>
+            </column>
+            <column name="created_user" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_user" type="VARCHAR(255)"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+            <column name="forgot_at" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-9" author="elmas">
+        <createTable tableName="nostalgia_user_role_relation">
+            <column name="role_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1725391394275-10" author="elmas">
+        <addUniqueConstraint columnNames="user_id" constraintName="uc_nostalgia_user_login_attempt_user"
+                             tableName="nostalgia_user_login_attempt"/>
+    </changeSet>
+    <changeSet id="1725391394275-11" author="elmas">
+        <addUniqueConstraint columnNames="user_id" constraintName="uc_nostalgia_user_password_user"
+                             tableName="nostalgia_user_password"/>
+    </changeSet>
+    <changeSet id="1725391394275-12" author="elmas">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="nostalgia_user_login_attempt"
+                                 constraintName="FK_NOSTALGIA_USER_LOGIN_ATTEMPT_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="nostalgia_user"/>
+    </changeSet>
+    <changeSet id="1725391394275-13" author="elmas">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="nostalgia_user_password"
+                                 constraintName="FK_NOSTALGIA_USER_PASSWORD_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="nostalgia_user"/>
+    </changeSet>
+    <changeSet id="1725391394275-14" author="elmas">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="nostalgia_role_permission_relation"
+                                 constraintName="fk_nosrolperrel_on_nostalgia_permission_entity"
+                                 referencedColumnNames="id" referencedTableName="nostalgia_permission"/>
+    </changeSet>
+    <changeSet id="1725391394275-15" author="elmas">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="nostalgia_role_permission_relation"
+                                 constraintName="fk_nosrolperrel_on_nostalgia_role_entity" referencedColumnNames="id"
+                                 referencedTableName="nostalgia_role"/>
+    </changeSet>
+    <changeSet id="1725391394275-16" author="elmas">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="nostalgia_user_role_relation"
+                                 constraintName="fk_nosuserolrel_on_nostalgia_role_entity" referencedColumnNames="id"
+                                 referencedTableName="nostalgia_role"/>
+    </changeSet>
+    <changeSet id="1725391394275-17" author="elmas">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="nostalgia_user_role_relation"
+                                 constraintName="fk_nosuserolrel_on_nostalgia_user_entity" referencedColumnNames="id"
+                                 referencedTableName="nostalgia_user"/>
+    </changeSet>
+
+</databaseChangeLog>

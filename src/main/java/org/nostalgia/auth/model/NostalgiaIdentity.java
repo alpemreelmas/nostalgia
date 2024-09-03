@@ -46,16 +46,6 @@ public class NostalgiaIdentity {
     }
 
     /**
-     * Returns the institution ID associated with the authenticated user's AYS identity.
-     * The institution ID is extracted from the JWT claims.
-     *
-     * @return the institution ID as a {@link String}
-     */
-    public String getInstitutionId() {
-        return this.getJwt().getClaim(NostalgiaTokenClaims.INSTITUTION_ID.getValue());
-    }
-
-    /**
      * Retrieves the access token value used for the current session.
      * This method extracts the token value from the JWT object.
      *

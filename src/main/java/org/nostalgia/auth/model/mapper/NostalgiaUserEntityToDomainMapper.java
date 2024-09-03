@@ -19,8 +19,6 @@ import org.nostalgia.common.model.mapper.BaseMapper;
 public interface NostalgiaUserEntityToDomainMapper extends BaseMapper<NostalgiaUserEntity, NostalgiaUser> {
 
     @Override
-    @Mapping(target = "phoneNumber.countryCode", source = "countryCode")
-    @Mapping(target = "phoneNumber.lineNumber", source = "lineNumber")
     NostalgiaUser map(NostalgiaUserEntity userEntity);
 
     /**

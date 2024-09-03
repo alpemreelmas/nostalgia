@@ -49,7 +49,7 @@ public class NostalgiaTokenConfigurationParameter {
      */
     public NostalgiaTokenConfigurationParameter(NostalgiaParameterService parameterService) {
 
-        log.info("AYS Token Configuration is initializing with AYS Parameters...");
+        log.info("Nostalgia Token Configuration is initializing with Nostalgia Parameters...");
 
         final Set<NostalgiaParameter> configurationParameters = parameterService.findAll("AUTH_");
 

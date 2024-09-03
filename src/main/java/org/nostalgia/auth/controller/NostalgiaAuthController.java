@@ -37,8 +37,8 @@ class NostalgiaAuthController {
     /**
      * This endpoint allows user to login to platform.
      *
-     * @param loginRequest An AysLoginRequest object required to login to platform.
-     * @return An AysResponse containing an AysTokenResponse object and the HTTP status code (200 OK).
+     * @param loginRequest An NostalgiaLoginRequest object required to log in to platform.
+     * @return An NostalgiaResponse containing an NostalgiaTokenResponse object and the HTTP status code (200 OK).
      */
     @PostMapping("/token")
     public NostalgiaResponse<NostalgiaTokenResponse> authenticate(@RequestBody @Valid NostalgiaLoginRequest loginRequest) {

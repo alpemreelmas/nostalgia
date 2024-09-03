@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.nostalgia.common.util.NostalgiaJsonUtil;
-import org.nostalgia.common.util.validation.PhoneNumber;
 
 /**
  * A class representing a phone number in requests, including its country code and line number.
  */
 @Getter
 @Setter
-@PhoneNumber
 public class NostalgiaPhoneNumberRequest {
 
     /**

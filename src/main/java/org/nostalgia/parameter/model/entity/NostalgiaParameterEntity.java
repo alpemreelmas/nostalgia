@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.ays.common.model.entity.BaseEntity;
+import org.nostalgia.common.model.entity.BaseEntity;
 
 /**
  * A JPA entity class that represents a parameter in the system.
@@ -19,7 +19,7 @@ import org.ays.common.model.entity.BaseEntity;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "AYS_PARAMETER")
+@Table(name = "NOSTALGIA_PARAMETER")
 public class NostalgiaParameterEntity extends BaseEntity {
 
     @Id

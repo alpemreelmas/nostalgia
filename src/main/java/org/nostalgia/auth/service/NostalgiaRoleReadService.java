@@ -23,13 +23,6 @@ import java.util.List;
 public interface NostalgiaRoleReadService {
 
     /**
-     * Retrieves all roles.
-     *
-     * @return A list of {@link NostalgiaRole} objects representing all roles in the system.
-     */
-    List<NostalgiaRole> findAll();
-
-    /**
      * Retrieves a paginated list of roles based on the specified {@link NostalgiaRoleListRequest}.
      * <p>
      * This method handles the retrieval of roles from a data source according to the parameters
