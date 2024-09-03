@@ -1,0 +1,78 @@
+server:
+  port: 9790
+
+logging:
+  level:
+    web: ${NOSTALGIA_LOG_LEVEL:debug}
+    sql: ${NOSTALGIA_LOG_LEVEL:debug}
+    org:
+      nostalgia: ${NOSTALGIA_LOG_LEVEL:trace}
+
+spring:
+  datasource:
+    username: ${NOSTALGIA_DB_USERNAME:root}
+    password: ${NOSTALGIA_DB_PASSWORD:44125}
+    url: jdbc:mysql://${NOSTALGIA_DB_IP:localhost}:${NOSTALGIA_DB_PORT:3307}/nostalgia
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      jdbc-url: ${spring.datasource.url}
+      driver-class-name: ${spring.datasource.driver-class-name}
+      maximum-pool-size: 5
+      connection-timeout: 180000
+      max-lifetime: 170000
+  mail:
+    host: ${NOSTALGIA_SMTP_HOST:smtp.gmail.com}
+    port: ${NOSTALGIA_SMTP_PORT:587}
+    username: ${NOSTALGIA_SMTP_USERNAME:nostalgia@gmail.com}
+    password: ${NOSTALGIA_SMTP_PASSWORD:nostalgiapass}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  liquibase:
+    enabled: true
+    changeLog: "classpath:db/changelog/db.changelog-master.yaml"
+    drop-first: ${NOSTALGIA_LIQUIBASE_ENABLE_DROP_FIRST:false}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+springdoc:
+  packagesToScan: org.nostalgia
+  cache:
+    disabled: false
+  swagger-ui:
+    path: /public/api/swagger-ui.html
+  api-docs:
+    path: /public/api/docs
+
+info:
+  application:
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health
+      base-path: /public/actuator
+
+nostalgia:
+  scheduler:
+    invalid-tokens-deletion:
+      cron: ${INVALID_TOKENS_DELETION_CRON:0 0 */3 * * ?}
+      enable: ${INVALID_TOKENS_DELETION_ENABLED:true}
