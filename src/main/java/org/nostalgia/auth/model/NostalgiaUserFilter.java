@@ -8,10 +8,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.nostalgia.auth.model.entity.NostalgiaUserEntity;
 import org.nostalgia.auth.model.enums.NostalgiaUserStatus;
 import org.nostalgia.common.model.NostalgiaFilter;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 import org.nostalgia.common.util.validation.Name;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
 
 import java.util.Set;
 
@@ -46,15 +44,12 @@ public class NostalgiaUserFilter implements NostalgiaFilter {
     @Size(min = 2, max = 255)
     private String emailAddress;
 
-    private NostalgiaPhoneNumber phoneNumber;
-
     private Set<NostalgiaUserStatus> statuses;
 
     @Name
     @Size(min = 2, max = 100)
     private String city;
 
-    private String institutionId;
 
 
     /**
@@ -72,9 +67,6 @@ public class NostalgiaUserFilter implements NostalgiaFilter {
     public Specification<NostalgiaUserEntity> toSpecification() {
 
         Specification<NostalgiaUserEntity> specification = Specification.where(null);
-
-        specification = specification.and((root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("institutionId"), this.institutionId));
 
         if (!CollectionUtils.isEmpty(this.statuses)) {
 
@@ -100,16 +92,6 @@ public class NostalgiaUserFilter implements NostalgiaFilter {
         if (this.emailAddress != null) {
             specification = specification.and((root, query, criteriaBuilder) ->
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("emailAddress")), "%" + this.emailAddress.toUpperCase() + "%"));
-        }
-
-        if (this.phoneNumber != null && StringUtils.hasText(this.phoneNumber.getCountryCode())) {
-            specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("countryCode"), "%" + this.phoneNumber.getCountryCode() + "%"));
-        }
-
-        if (this.phoneNumber != null && StringUtils.hasText(this.phoneNumber.getLineNumber())) {
-            specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("lineNumber"), "%" + this.phoneNumber.getLineNumber() + "%"));
         }
 
         if (this.city != null) {

@@ -17,7 +17,7 @@ import java.util.Set;
  * Filter criteria for querying roles in the application.
  * <p>
  * The {@link NostalgiaRoleFilter} class allows the construction of dynamic query specifications
- * for roles, based on the provided filter parameters. It implements the {@link AysFilter} interface,
+ * for roles, based on the provided filter parameters. It implements the {@link NostalgiaFilter} interface,
  * which requires the implementation of the {@link NostalgiaRoleFilter#toSpecification()} method.
  * </p>
  * <p>
@@ -38,7 +38,6 @@ public class NostalgiaRoleFilter implements NostalgiaFilter {
     @Size(min = 2, max = 255)
     private String name;
     private Set<NostalgiaRoleStatus> statuses;
-    private String institutionId;
 
     /**
      * Converts the current filter criteria into a {@link Specification} for querying roles.
@@ -55,9 +54,6 @@ public class NostalgiaRoleFilter implements NostalgiaFilter {
     public Specification<NostalgiaRoleEntity> toSpecification() {
 
         Specification<NostalgiaRoleEntity> specification = Specification.where(null);
-
-        specification = specification.and((root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("institutionId"), this.institutionId));
 
         if (this.name != null) {
             specification = specification.and((root, query, criteriaBuilder) ->

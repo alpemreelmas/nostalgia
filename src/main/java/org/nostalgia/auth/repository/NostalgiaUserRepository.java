@@ -20,15 +20,6 @@ public interface NostalgiaUserRepository extends JpaRepository<NostalgiaUserEnti
     Optional<NostalgiaUserEntity> findByEmailAddress(String emailAddress);
 
     /**
-     * Finds a user by their phone number.
-     *
-     * @param countryCode the country code of the user to check
-     * @param lineNumber  the phone number of the user to check
-     * @return an optional containing the UserEntity with the given phone number, or an empty optional if not found
-     */
-    Optional<NostalgiaUserEntity> findByCountryCodeAndLineNumber(String countryCode, String lineNumber);
-
-    /**
      * Finds a user entity by the password ID.
      *
      * @param passwordId the ID of the password to search for.
@@ -43,14 +34,5 @@ public interface NostalgiaUserRepository extends JpaRepository<NostalgiaUserEnti
      * @return true if an {@link NostalgiaUserEntity} exists with the given emailAddress, false otherwise
      */
     boolean existsByEmailAddress(String emailAddress);
-
-    /**
-     * Checks if an {@link NostalgiaUserEntity} exists with the given country code and phone number.
-     *
-     * @param countryCode the country code of the user to check
-     * @param lineNumber  the phone number of the user to check
-     * @return true if an {@link NostalgiaUserEntity} exists with the given country code and phone number, false otherwise
-     */
-    boolean existsByCountryCodeAndLineNumber(String countryCode, String lineNumber);
 
 }

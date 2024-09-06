@@ -11,7 +11,6 @@ import org.nostalgia.auth.port.NostalgiaUserReadPort;
 import org.nostalgia.auth.port.NostalgiaUserSavePort;
 import org.nostalgia.auth.service.NostalgiaUserUpdateService;
 import org.nostalgia.auth.util.exception.*;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,12 +1,10 @@
 package org.nostalgia.auth.repository;
 
 import org.nostalgia.auth.model.entity.NostalgiaRoleEntity;
-import org.nostalgia.auth.model.enums.NostalgiaRoleStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,15 +18,6 @@ import java.util.Optional;
  * @see JpaSpecificationExecutor
  */
 public interface NostalgiaRoleRepository extends JpaRepository<NostalgiaRoleEntity, String>, JpaSpecificationExecutor<NostalgiaRoleEntity> {
-
-    /**
-     * Retrieves all active roles associated with a specific institution.
-     *
-     * @param institutionId the ID of the institution
-     * @param status        the status of the roles to retrieve
-     * @return a list of {@link NostalgiaRoleEntity} objects matching the institution ID and status
-     */
-    List<NostalgiaRoleEntity> findAllByInstitutionIdAndStatus(String institutionId, NostalgiaRoleStatus status);
 
     /**
      * Finds a {@link NostalgiaRoleEntity} by the given role name.

@@ -13,8 +13,6 @@ import org.nostalgia.auth.service.NostalgiaUserCreateService;
 import org.nostalgia.auth.service.NostalgiaUserMailService;
 import org.nostalgia.auth.util.exception.NostalgiaRolesNotExistException;
 import org.nostalgia.auth.util.exception.NostalgiaUserAlreadyExistsByEmailAddressException;
-import org.nostalgia.auth.util.exception.NostalgiaUserAlreadyExistsByPhoneNumberException;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 import org.nostalgia.common.util.NostalgiaRandomUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,19 +56,12 @@ class NostalgiaUserCreateServiceImpl implements NostalgiaUserCreateService {
      *
      * @param createRequest The request object containing data for the new user.
      * @throws NostalgiaUserAlreadyExistsByEmailAddressException if the email address is already associated with another user.
-     * @throws NostalgiaUserAlreadyExistsByPhoneNumberException  if the phone number is already associated with another user.
      * @throws NostalgiaRolesNotExistException                   if any of the provided role IDs do not exist.
      */
     @Override
     public void create(final NostalgiaUserCreateRequest createRequest) {
 
         this.validateEmailAddress(createRequest.getEmailAddress());
-
-        final NostalgiaPhoneNumber phoneNumber = NostalgiaPhoneNumber.builder()
-                .countryCode(createRequest.getPhoneNumber().getCountryCode())
-                .lineNumber(createRequest.getPhoneNumber().getLineNumber())
-                .build();
-        this.validatePhoneNumber(phoneNumber);
 
         final NostalgiaUser user = userCreateRequestToDomainMapper.map(createRequest);
 
@@ -87,20 +78,6 @@ class NostalgiaUserCreateServiceImpl implements NostalgiaUserCreateService {
         final NostalgiaUser savedUser = userSavePort.save(user);
 
         userMailService.sendPasswordCreateEmail(savedUser);
-    }
-
-    /**
-     * Validates the uniqueness of the provided phone number.
-     * Checks if there is any existing user with the same phone number.
-     *
-     * @param phoneNumber The phone number to be validated.
-     * @throws NostalgiaUserAlreadyExistsByPhoneNumberException if the phone number is already associated with another user.
-     */
-    private void validatePhoneNumber(NostalgiaPhoneNumber phoneNumber) {
-        userReadPort.findByPhoneNumber(phoneNumber)
-                .ifPresent(existingUser -> {
-                    throw new NostalgiaUserAlreadyExistsByPhoneNumberException(phoneNumber);
-                });
     }
 
     /**

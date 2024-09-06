@@ -11,7 +11,6 @@ import org.nostalgia.auth.port.NostalgiaUserSavePort;
 import org.nostalgia.auth.repository.NostalgiaUserRepository;
 import org.nostalgia.common.model.NostalgiaPage;
 import org.nostalgia.common.model.NostalgiaPageable;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -101,23 +100,6 @@ class NostalgiaUserAdapter implements NostalgiaUserReadPort, NostalgiaUserSavePo
         return userRepository.existsByEmailAddress(emailAddress);
     }
 
-
-    /**
-     * Finds a user by their phone number, which is a concatenation of country code and line number.
-     *
-     * @param phoneNumber the concatenated phone number (country code + line number) of the user to be found
-     * @return an optional containing the {@link NostalgiaUser} with the given phone number, or an empty optional if not found
-     */
-    @Override
-    public Optional<NostalgiaUser> findByPhoneNumber(NostalgiaPhoneNumber phoneNumber) {
-        Optional<NostalgiaUserEntity> userEntity = userRepository.findByCountryCodeAndLineNumber(
-                phoneNumber.getCountryCode(),
-                phoneNumber.getLineNumber()
-        );
-        return userEntity.map(userEntityToDomainMapper::map);
-    }
-
-
     /**
      * Finds a user by their password ID.
      *
@@ -128,21 +110,6 @@ class NostalgiaUserAdapter implements NostalgiaUserReadPort, NostalgiaUserSavePo
     public Optional<NostalgiaUser> findByPasswordId(final String passwordId) {
         Optional<NostalgiaUserEntity> userEntity = userRepository.findByPasswordId(passwordId);
         return userEntity.map(userEntityToDomainMapper::map);
-    }
-
-
-    /**
-     * Checks if a user with the given phone number exists in the repository.
-     *
-     * @param phoneNumber The phone number to check for existence.
-     * @return true if a user with the given phone number exists, otherwise false.
-     */
-    @Override
-    public boolean existsByPhoneNumber(final NostalgiaPhoneNumber phoneNumber) {
-        return userRepository.existsByCountryCodeAndLineNumber(
-                phoneNumber.getCountryCode(),
-                phoneNumber.getLineNumber()
-        );
     }
 
 

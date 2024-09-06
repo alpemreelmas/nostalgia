@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.nostalgia.auth.model.NostalgiaRole;
 import org.nostalgia.auth.model.NostalgiaRoleFilter;
 import org.nostalgia.auth.model.entity.NostalgiaRoleEntity;
-import org.nostalgia.auth.model.enums.NostalgiaRoleStatus;
 import org.nostalgia.auth.model.mapper.NostalgiaRoleEntityToDomainMapper;
 import org.nostalgia.auth.model.mapper.NostalgiaRoleToEntityMapper;
 import org.nostalgia.auth.port.NostalgiaRoleReadPort;

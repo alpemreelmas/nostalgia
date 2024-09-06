@@ -3,13 +3,11 @@ package org.nostalgia.auth.config;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.nostalgia.auth.model.enums.NostalgiaConfigurationParameter;
-import org.nostalgia.auth.util.NostalgiaKeyConverter;
 import org.nostalgia.parameter.model.NostalgiaParameter;
 import org.nostalgia.parameter.service.NostalgiaParameterService;
 import org.springframework.context.annotation.Configuration;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 import java.util.Optional;
 import java.util.Set;
 
@@ -65,7 +63,21 @@ public class NostalgiaTokenConfigurationParameter {
                 .map(Integer::valueOf)
                 .orElse(Integer.valueOf(NostalgiaConfigurationParameter.AUTH_REFRESH_TOKEN_EXPIRE_DAY.getDefaultValue()));
 
-        final String encryptedPrivateKeyPem = Optional
+
+        KeyPair keyPair;
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            keyPairGenerator.initialize(2048);
+            keyPair = keyPairGenerator.generateKeyPair();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.privateKey = keyPair.getPrivate();
+        this.publicKey = keyPair.getPublic();
+
+        /* Core of the code is the below, couldn't figure it out for now. TODO: learn better those structure and modify/solve the problem */
+        /*final String encryptedPrivateKeyPem = Optional
                 .ofNullable(NostalgiaParameter.getDefinition(NostalgiaConfigurationParameter.AUTH_TOKEN_PRIVATE_KEY, configurationParameters))
                 .orElse(NostalgiaConfigurationParameter.AUTH_TOKEN_PRIVATE_KEY.getDefaultValue());
         this.privateKey = NostalgiaKeyConverter.convertPrivateKey(encryptedPrivateKeyPem);
@@ -73,7 +85,7 @@ public class NostalgiaTokenConfigurationParameter {
         final String encryptedPublicKeyPem = Optional
                 .ofNullable(NostalgiaParameter.getDefinition(NostalgiaConfigurationParameter.AUTH_TOKEN_PUBLIC_KEY, configurationParameters))
                 .orElse(NostalgiaConfigurationParameter.AUTH_TOKEN_PUBLIC_KEY.getDefaultValue());
-        this.publicKey = NostalgiaKeyConverter.convertPublicKey(encryptedPublicKeyPem);
+        this.publicKey = NostalgiaKeyConverter.convertPublicKey(encryptedPublicKeyPem);*/
 
         log.info("NOSTALGIA token configuration is initialized!");
     }

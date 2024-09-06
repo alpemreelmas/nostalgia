@@ -3,7 +3,6 @@ package org.nostalgia.auth.model.response;
 import lombok.Getter;
 import lombok.Setter;
 import org.nostalgia.auth.model.enums.NostalgiaUserStatus;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 
 import java.time.LocalDateTime;
 
@@ -22,8 +21,6 @@ public class NostalgiaUsersResponse {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private NostalgiaPhoneNumber phoneNumber;
-    private String city;
     private NostalgiaUserStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

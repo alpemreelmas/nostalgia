@@ -5,7 +5,6 @@ import org.nostalgia.auth.model.NostalgiaUser;
 import org.nostalgia.auth.model.NostalgiaUserFilter;
 import org.nostalgia.common.model.NostalgiaPage;
 import org.nostalgia.common.model.NostalgiaPageable;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 
 import java.util.Optional;
 
@@ -40,14 +39,6 @@ public interface NostalgiaUserReadPort {
     Optional<NostalgiaUser> findByEmailAddress(String emailAddress);
 
     /**
-     * Finds a user by their phone number, which is a concatenation of country code and line number.
-     *
-     * @param phoneNumber the concatenated phone number (country code + line number) of the user to be found
-     * @return an optional containing the AysUser with the given phone number, or an empty optional if not found
-     */
-    Optional<NostalgiaUser> findByPhoneNumber(NostalgiaPhoneNumber phoneNumber);
-
-    /**
      * Finds a user by their password ID.
      *
      * @param passwordId the ID of the password to search for.
@@ -62,14 +53,5 @@ public interface NostalgiaUserReadPort {
      * @return true if a user with the given email address exists, otherwise false.
      */
     boolean existsByEmailAddress(String emailAddress);
-
-    /**
-     * Checks if a user with the given phone number exists in the repository.
-     *
-     * @param phoneNumber The phone number to check for existence.
-     * @return true if a user with the given phone number exists, otherwise false.
-     */
-    boolean existsByPhoneNumber(NostalgiaPhoneNumber phoneNumber);
-
 
 }

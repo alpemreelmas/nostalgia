@@ -10,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 import org.nostalgia.auth.model.enums.NostalgiaTokenClaims;
 import org.nostalgia.auth.model.enums.NostalgiaUserStatus;
 import org.nostalgia.common.model.BaseDomainModel;
-import org.nostalgia.common.model.NostalgiaPhoneNumber;
 
 import java.time.LocalDateTime;
 import java.util.List;

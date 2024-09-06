@@ -23,10 +23,10 @@ spring:
       connection-timeout: 180000
       max-lifetime: 170000
   mail:
-    host: ${NOSTALGIA_SMTP_HOST:smtp.gmail.com}
+    host: ${NOSTALGIA_SMTP_HOST:sandbox.smtp.mailtrap.io}
     port: ${NOSTALGIA_SMTP_PORT:587}
-    username: ${NOSTALGIA_SMTP_USERNAME:nostalgia@gmail.com}
-    password: ${NOSTALGIA_SMTP_PASSWORD:nostalgiapass}
+    username: ${NOSTALGIA_SMTP_USERNAME:44fd41c98e38a0}
+    password: ${NOSTALGIA_SMTP_PASSWORD:26e6368b2dc6b9}
     properties:
       mail:
         smtp:
